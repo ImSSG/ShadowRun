@@ -17,7 +17,13 @@ public class Obstaculo extends Personaje{
     }
 
 
-
+    /**
+     * Constructor de los obstaculos(Pinchos)
+     * @param posicion posicion original del obstaculo
+     * @param tamano tamano original del obstaculo
+     * @param velocidade_max velocidad maxima del objeto
+     * @param tipo Tipo de obstaculo Normal o Inverso
+     */
     public Obstaculo(Vector2 posicion, Vector2 tamano, float velocidade_max, Tipo tipo) {
         super(posicion, tamano, velocidade_max);
         velocidade = new Vector2(-velocidade_max,0);
@@ -25,28 +31,22 @@ public class Obstaculo extends Personaje{
     }
 
 
-
-    public void setVelocidadeX(float x){
-        velocidade.x = x;
-
-    }
-    public void setVelocidadeY(float y){
-        velocidade.y = y;
-    }
-
+    /**
+     * Metodo que nos da el rectangulo para ver si hace colisiones
+     * @return Devuelve el rectangulo del obstaculo
+     */
     public Rectangle getColisionObstaculo() {
         return  new Rectangle((int)this.getPosicion().x,(int)this.getPosicion().y,(int)this.getTamano().x,(int)this.getTamano().y);
 
     }
 
+    /**
+     * Metodo que nos devuelve el tipo del obstaculo
+     * @return el tipo del obstaculo
+     */
     public Tipo getTipo() {
         return tipo;
     }
-
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
-
 
     @Override
     public void update(float delta) {

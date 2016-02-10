@@ -18,7 +18,13 @@ public class Plataformas extends Personaje{
     }
 
 
-
+    /**
+     * Metodo para crear una nueva plaraforma
+     * @param posicion la posicion original del objeto
+     * @param tamano el tamaño del objeto
+     * @param velocidade_max la velocidad maxima del objeto
+     * @param tipo el tipo de plataforma (Normal, Aerea, Azul o naranja)
+     */
     public Plataformas(Vector2 posicion, Vector2 tamano, float velocidade_max, Tipo tipo) {
         super(posicion, tamano, velocidade_max);
         velocidade = new Vector2(-velocidade_max,0);
@@ -28,17 +34,25 @@ public class Plataformas extends Personaje{
     }
 
 
+    /**
+     * Metodo para darle una nueva velocidad lateral al objeto
+     * @param x nueva velocidad en horizontal
+     */
     public void setVelocidadeX(float x){
         velocidade.x = x;
-
     }
+
+    /**
+     * Metodo para darle una nueva velocidad vertical al objeto
+     * @param y la nueva velocidad en vertical
+     */
     public void setVelocidadeY(float y){
         velocidade.y = y;
     }
 
     /**
      * Metodo que da las colisiones de la plataforma la 0 es la grande
-     * @return
+     * @return dos rectangulos de colision uno de la plataforma entera y otra del borde izquierdo
      */
     public Rectangle[] getColisionPlataforma() {
         Rectangle[] colisiones = new Rectangle[2];
@@ -48,13 +62,14 @@ public class Plataformas extends Personaje{
     }
 
 
+    /**
+     * Metodo para obtener el tipo del objeto
+     * @return tipo el tipo de plataforma (Normal, Aerea, Azul o naranja)
+     */
     public Tipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
 
     @Override
     public void update(float delta) {

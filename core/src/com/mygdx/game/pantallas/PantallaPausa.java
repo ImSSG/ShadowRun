@@ -31,6 +31,11 @@ public class PantallaPausa implements InputProcessor, Screen {
 
     private ShadowGame juego;
 
+    /**
+     * Metodo constructor de la pantalla pausa
+     * @param meuxogogame una instancia del juego
+     * @param pantalla la pantalla de juego
+     */
     public PantallaPausa(ShadowGame meuxogogame, PantallaXogo pantalla) {
         meuMundo = new Mundo();
 

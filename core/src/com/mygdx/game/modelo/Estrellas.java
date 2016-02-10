@@ -10,6 +10,12 @@ public class Estrellas extends Personaje{
 
     private Vector2 velocidade;
 
+    /**
+     * Constructor de las estrellas
+     * @param posicion posicion en la que se encuentra el objeto
+     * @param tamano tamano del objeto
+     * @param velocidade_max velocidad maxima del objeto
+     */
     public Estrellas(Vector2 posicion, Vector2 tamano, float velocidade_max) {
         super(posicion, tamano, velocidade_max);
         velocidade = new Vector2(-velocidade_max,0);

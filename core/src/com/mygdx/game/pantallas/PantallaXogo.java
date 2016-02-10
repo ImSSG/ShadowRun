@@ -28,6 +28,10 @@ public class PantallaXogo implements Screen, InputProcessor {
     private boolean pausa = false;
 
 
+    /**
+     * Metodo constructor de la pantalla del juego
+     * @param meuxogogame una instancia del juego
+     */
     public PantallaXogo(ShadowGame meuxogogame) {
         meuMundo = new Mundo();
         this.meuxogogame = meuxogogame;
@@ -35,14 +39,28 @@ public class PantallaXogo implements Screen, InputProcessor {
         controladorXogo = new ControladorXogo(meuMundo,meuxogogame);
     }
 
+    /**
+     * Metodo que hace que suene el sonido de daño
+     */
     public static void dmg() {
         Sound dmgSound = Gdx.audio.newSound(Gdx.files.internal("SONIDOS/dmg.mp3"));
         dmgSound.play();
     }
 
+    /**
+     * Metodo que hace que suene el sonido de coger una vida
+     */
     public static void estrella(){
         Sound up = Gdx.audio.newSound(Gdx.files.internal("SONIDOS/dmg.mp3"));
         up.play();
+    }
+
+    /**
+     * Metodo que nos permite decidir si el juego esta en pausa
+     * @param nuevo true si esta falso si no
+     */
+    public void setPausa(boolean nuevo) {
+        pausa = nuevo;
     }
 
 
@@ -187,12 +205,6 @@ public class PantallaXogo implements Screen, InputProcessor {
         return false;
     }
 
-    public boolean isPausa() {
-        return pausa;
-    }
 
-    public void setPausa(boolean nuevo) {
-       pausa = nuevo;
-    }
 
 }
