@@ -1,13 +1,12 @@
 package com.mygdx.game;
 
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import java.io.File;
 import java.util.logging.FileHandler;
 
 
@@ -16,7 +15,7 @@ import java.util.logging.FileHandler;
  */
 public class AssetsXogo {
 
-    //Atlas 15
+    public static Texture menuprincipal;
 
     private static TextureAtlas atlas;
     private static TextureAtlas animAtlas;
@@ -36,6 +35,8 @@ public class AssetsXogo {
     public static TextureRegion pausa;
 
     public static TextureRegion[] animacion = new TextureRegion[4];
+
+
     /**
      * Metodo que carga todas las texturas del atlas
      */
@@ -60,8 +61,10 @@ public class AssetsXogo {
 
         animacion = cargarAnimacion();
 
-    }
+        FileHandle fileHandler = Gdx.files.internal("GRAFICOS/menuprincipal.jpg");
+        menuprincipal = new Texture(fileHandler);
 
+    }
 
     /**
      * Metodo que libera todas las texturas
@@ -84,6 +87,10 @@ public class AssetsXogo {
 
     }
 
+    /**
+     * Metodo que carga la animacion
+     * @return
+     */
     private static TextureRegion[] cargarAnimacion() {
         TextureRegion[] animacion1 = new TextureRegion[4];
         animacion1[0] = animAtlas.findRegion("moneda_1_H");

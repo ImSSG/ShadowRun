@@ -32,6 +32,11 @@ public class RendererXogo implements InputProcessor {
     private Mundo meuMundo;
     private BitmapFont bmf;
     private float crono;
+
+    /**
+     * Metodo creador de nuestro Renderer
+     * @param mundo nuestro mundo
+     */
     public RendererXogo(Mundo mundo) {
 
         meuMundo = mundo;
@@ -43,6 +48,10 @@ public class RendererXogo implements InputProcessor {
     }
 
 
+    /**
+     * Metodo que se encarga de dibujar todo lo que vemos en pantalla
+     * @param delta tiempo que pasa entre frame y frame
+     */
     public void render(float delta) {
         spritebatch.begin();
 
@@ -65,17 +74,26 @@ public class RendererXogo implements InputProcessor {
         spritebatch.end();
     }
 
+    /**
+     * Metodo que se encarga de dibujar el fondo de arriba y abajo y el morado del medio
+     */
     private void dibujarFondo() {
         spritebatch.draw(AssetsXogo.morado, Mundo.FONDO_MORADO.x, Mundo.FONDO_MORADO.y, Mundo.FONDO_MORADO.width, Mundo.FONDO_MORADO.height);
         spritebatch.draw(AssetsXogo.puntoNegro, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.SUELO);
         spritebatch.draw(AssetsXogo.puntoNegro, 0, Mundo.SUELO + Mundo.FONDO_MORADO.height, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO - (Mundo.SUELO + Mundo.FONDO_MORADO.height));
     }
 
+    /**
+     * Metodo que dibuja el personaje principal
+     */
     private void dibujarRunner() {
         Lisa lisa = meuMundo.getLisa();
         spritebatch.draw(AssetsXogo.lisa, lisa.getPosicion().x, lisa.getPosicion().y, lisa.getTamano().x, lisa.getTamano().y);
     }
 
+    /**
+     * Metodo que dibuja todos los pinchos que vemos en pantalla
+     */
     private void dibujarObstaculos() {
         ArrayList<Obstaculo> obstaculos = meuMundo.getObstaculos();
         for (Obstaculo o : obstaculos) {
@@ -88,6 +106,9 @@ public class RendererXogo implements InputProcessor {
         }
     }
 
+    /**
+     * Metodo que dibuja todas las plataformas que tenemos en pantalla
+     */
     private void dibujarPlataformas() {
         for (Plataformas p : meuMundo.getPlataformas()) {
             if (p.getTipo().equals(Plataformas.Tipo.NORMAL) || p.getTipo().equals(Plataformas.Tipo.SOPORTE)) {
@@ -102,6 +123,9 @@ public class RendererXogo implements InputProcessor {
         }
     }
 
+    /**
+     * Metodo que dibuja la animacion de las monedas
+     */
     private void dibujarEstrellas(){
         Animation animation = new Animation(0.15f, AssetsXogo.animacion);
         for(Estrellas e:meuMundo.getEstrellas()){
@@ -109,6 +133,9 @@ public class RendererXogo implements InputProcessor {
         }
     }
 
+    /**
+     * Metodo que nos dibuja la puntuacion
+     */
     private void dibujarPuntuacion(){
 
         bmf.draw(spritebatch,"SCORE: " +(int) meuMundo.getLisa().getPuntuacion() ,50,275);
@@ -117,6 +144,9 @@ public class RendererXogo implements InputProcessor {
 
     }
 
+    /**
+     * Metodo que nos dibuja las estrellas a modo de vida del jugador
+     */
     private void dibujarVidas(){
         int total =  meuMundo.getLisa().getVida();
         for(int i = 0; i < total; i++){
@@ -141,10 +171,16 @@ public class RendererXogo implements InputProcessor {
         }
     }
 
+    /**
+     * Metodo que nos pone la pantalla de muerte
+     */
     private void dibujarMuerte() {
         spritebatch.draw(AssetsXogo.muerte, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
     }
 
+    /**
+     * Metodo que nos permite ver los rectangulos con el debugger
+     */
     private void debugger() {
 
         shaperender.begin(ShapeRenderer.ShapeType.Line);
@@ -164,7 +200,6 @@ public class RendererXogo implements InputProcessor {
         shaperender.end();
 
     }
-
 
     /**
      * Metodo que nos permite reajustar el mundo al tamaño que nosotros queremos
