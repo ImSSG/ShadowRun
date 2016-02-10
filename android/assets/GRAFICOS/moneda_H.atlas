@@ -1,0 +1,33 @@
+
+moneda_H.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+moneda_1_H
+  rotate: false
+  xy: 1, 1
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+moneda_2_H
+  rotate: false
+  xy: 27, 1
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+moneda_3_H
+  rotate: false
+  xy: 53, 1
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+moneda_4_H
+  rotate: false
+  xy: 79, 1
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1

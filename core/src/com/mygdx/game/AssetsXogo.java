@@ -19,7 +19,7 @@ public class AssetsXogo {
     //Atlas 15
 
     private static TextureAtlas atlas;
-
+    private static TextureAtlas animAtlas;
 
     public static TextureRegion morado;
     public static TextureRegion lisa;
@@ -35,15 +35,18 @@ public class AssetsXogo {
     public static TextureRegion star2;
     public static TextureRegion pausa;
 
-
-
+    public static TextureRegion[] animacion = new TextureRegion[4];
+    /**
+     * Metodo que carga todas las texturas del atlas
+     */
     public static void cargarTexturas() {
 
         atlas = new TextureAtlas("GRAFICOS/atlas.atlas");
+        animAtlas = new TextureAtlas("GRAFICOS/moneda_H.atlas");
 
         morado = atlas.findRegion("Violeta");
-        lisa=atlas.findRegion("lisa");
-        pausa=atlas.findRegion("menu");
+        lisa = atlas.findRegion("lisa");
+        pausa = atlas.findRegion("menu");
         muerte = atlas.findRegion("muerte");
         star = atlas.findRegion("star");
         star1 = atlas.findRegion("star1");
@@ -55,11 +58,39 @@ public class AssetsXogo {
         pinchoInverso = atlas.findRegion("pinchoInverso");
         puntoNegro = atlas.findRegion("plataformanegra");
 
+        animacion = cargarAnimacion();
 
     }
 
 
+    /**
+     * Metodo que libera todas las texturas
+     */
     public static void liberarTexturas() {
 
+        morado = null;
+        lisa = null;
+        pinchoNegro = null;
+        plataformaNegra = null;
+        plataformaAzul = null;
+        plataformaNaranja = null;
+        muerte = null;
+        pinchoInverso = null;
+        puntoNegro = null;
+        star = null;
+        star1 = null;
+        star2 = null;
+        pausa = null;
+
+    }
+
+    private static TextureRegion[] cargarAnimacion() {
+        TextureRegion[] animacion1 = new TextureRegion[4];
+        animacion1[0] = animAtlas.findRegion("moneda_1_H");
+        animacion1[1] = animAtlas.findRegion("moneda_2_H");
+        animacion1[2] = animAtlas.findRegion("moneda_3_H");
+        animacion1[3] = animAtlas.findRegion("moneda_4_H");
+
+        return animacion1;
     }
 }

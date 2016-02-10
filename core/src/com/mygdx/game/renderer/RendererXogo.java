@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -17,28 +18,20 @@ import com.mygdx.game.modelo.Plataformas;
 
 import java.util.ArrayList;
 
+
+
 /**
  * Created by Sam on 24/01/2016.
  */
 public class RendererXogo implements InputProcessor {
 
-
-
     private ShapeRenderer shaperender;
-
     private SpriteBatch spritebatch;
-
     private OrthographicCamera camara2d;
-
-
     private boolean debugger = false ;
-
     private Mundo meuMundo;
-
     private BitmapFont bmf;
-
-
-
+    private float crono;
     public RendererXogo(Mundo mundo) {
 
         meuMundo = mundo;
@@ -61,20 +54,16 @@ public class RendererXogo implements InputProcessor {
             dibujarEstrellas();
             dibujarPuntuacion();
             dibujarVidas();
+            crono += delta;
             if (debugger) {
                 debugger();
             }
-
         } else {
             dibujarMuerte();
         }
 
-
         spritebatch.end();
     }
-
-
-
 
     private void dibujarFondo() {
         spritebatch.draw(AssetsXogo.morado, Mundo.FONDO_MORADO.x, Mundo.FONDO_MORADO.y, Mundo.FONDO_MORADO.width, Mundo.FONDO_MORADO.height);
@@ -114,8 +103,9 @@ public class RendererXogo implements InputProcessor {
     }
 
     private void dibujarEstrellas(){
+        Animation animation = new Animation(0.15f, AssetsXogo.animacion);
         for(Estrellas e:meuMundo.getEstrellas()){
-            spritebatch.draw(AssetsXogo.star, e.getPosicion().x,e.getPosicion().y,e.getTamano().x, e.getTamano().y);
+            spritebatch.draw(animation.getKeyFrame(crono,true), e.getPosicion().x,e.getPosicion().y,e.getTamano().x, e.getTamano().y);
         }
     }
 
@@ -191,6 +181,9 @@ public class RendererXogo implements InputProcessor {
 
     }
 
+    /**
+     * Metodo que hace el dispose del Batch
+     */
     public void dispose() {
         spritebatch.dispose();
     }
