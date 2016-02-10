@@ -55,7 +55,7 @@ public class Mundo {
         int paquete = (int) (Math.random() * 100);
         paquete *= 3;
 
-        //paquete = 300; //PARA PROBAR EL PAQUETE INDICADO
+        paquete = 200; //PARA PROBAR EL PAQUETE INDICADO
 
         if (paquete < 100) {
 
@@ -119,6 +119,9 @@ public class Mundo {
             plataforma = new Plataformas(new Vector2(plataforma1.getPosicion().x + plataforma1.getTamano().x + 100, Mundo.SUELO + 80), new Vector2(32, 16), velocidadPaq, Plataformas.Tipo.NORMAL);
             plataformas1.add(plataforma);
 
+            Estrellas estrella = new Estrellas(new Vector2(plataforma.getPosicion().x + 4, plataforma.getPosicion().y+plataforma.getTamano().y), new Vector2(24,24), velocidadPaq);
+            estrellas1.add(estrella);
+
         }
         if (paquete > 200 && paquete <= 300) {
             int velocidadPaq = 240;
@@ -153,6 +156,12 @@ public class Mundo {
             Estrellas estrella = new Estrellas(new Vector2(plataforma.getPosicion().x + 4, plataforma.getPosicion().y+plataforma.getTamano().y), new Vector2(24,24), velocidadPaq);
             estrellas1.add(estrella);
 
+        }
+        if(paquete > 300 && paquete < 400){
+            int velocidadPaq = 235;
+
+            Plataformas plataforma = new Plataformas(new Vector2(TAMANO_MUNDO_ANCHO, Mundo.SUELO), new Vector2(750, 16), velocidadPaq, Plataformas.Tipo.NARANJA);
+            plataformas1.add(plataforma);
 
         }
         this.plataformas = plataformas1;

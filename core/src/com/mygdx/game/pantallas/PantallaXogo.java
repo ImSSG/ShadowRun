@@ -73,6 +73,10 @@ public class PantallaXogo implements Screen, InputProcessor {
     public void show() {
         // TODO Auto-generated method stub
         Gdx.input.setInputProcessor(this);
+        Gdx.input.setCatchBackKey(true);
+
+
+
         pausa = false;
     }
 

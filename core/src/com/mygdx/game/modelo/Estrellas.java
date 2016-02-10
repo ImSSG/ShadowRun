@@ -15,6 +15,10 @@ public class Estrellas extends Personaje{
         velocidade = new Vector2(-velocidade_max,0);
     }
 
+    /**
+     * Metodo para obtener el rectangulo de la estrella
+     * @return el rectangulo donde se encuentra actualmente la estrella
+     */
     public Rectangle getColisionEstrella() {
         return  new Rectangle((int)this.getPosicion().x,(int)this.getPosicion().y,(int)this.getTamano().x,(int)this.getTamano().y);
 

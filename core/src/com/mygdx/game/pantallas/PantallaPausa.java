@@ -45,7 +45,7 @@ public class PantallaPausa implements InputProcessor, Screen {
     @Override
     public void render(float delta) {
         spritebatch.begin();
-        spritebatch.draw(AssetsXogo.texturePausa, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
+        spritebatch.draw(AssetsXogo.pausa, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
         spritebatch.end();
     }
 

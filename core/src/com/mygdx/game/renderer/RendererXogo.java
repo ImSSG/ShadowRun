@@ -77,24 +77,24 @@ public class RendererXogo implements InputProcessor {
 
 
     private void dibujarFondo() {
-        spritebatch.draw(AssetsXogo.texturaMorada, Mundo.FONDO_MORADO.x, Mundo.FONDO_MORADO.y, Mundo.FONDO_MORADO.width, Mundo.FONDO_MORADO.height);
-        spritebatch.draw(AssetsXogo.texturePuntoNegro, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.SUELO);
-        spritebatch.draw(AssetsXogo.texturePuntoNegro, 0, Mundo.SUELO + Mundo.FONDO_MORADO.height, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO - (Mundo.SUELO + Mundo.FONDO_MORADO.height));
+        spritebatch.draw(AssetsXogo.morado, Mundo.FONDO_MORADO.x, Mundo.FONDO_MORADO.y, Mundo.FONDO_MORADO.width, Mundo.FONDO_MORADO.height);
+        spritebatch.draw(AssetsXogo.puntoNegro, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.SUELO);
+        spritebatch.draw(AssetsXogo.puntoNegro, 0, Mundo.SUELO + Mundo.FONDO_MORADO.height, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO - (Mundo.SUELO + Mundo.FONDO_MORADO.height));
     }
 
     private void dibujarRunner() {
         Lisa lisa = meuMundo.getLisa();
-        spritebatch.draw(AssetsXogo.textureRunner, lisa.getPosicion().x, lisa.getPosicion().y, lisa.getTamano().x, lisa.getTamano().y);
+        spritebatch.draw(AssetsXogo.lisa, lisa.getPosicion().x, lisa.getPosicion().y, lisa.getTamano().x, lisa.getTamano().y);
     }
 
     private void dibujarObstaculos() {
         ArrayList<Obstaculo> obstaculos = meuMundo.getObstaculos();
         for (Obstaculo o : obstaculos) {
             if (o.getTipo().equals(Obstaculo.Tipo.NORMAL)) {
-                spritebatch.draw(AssetsXogo.texturePinchoNegro, o.getPosicion().x, o.getPosicion().y, o.getTamano().x, o.getTamano().y);
+                spritebatch.draw(AssetsXogo.pinchoNegro, o.getPosicion().x, o.getPosicion().y, o.getTamano().x, o.getTamano().y);
             }
             if (o.getTipo().equals(Obstaculo.Tipo.INVERSO)) {
-                spritebatch.draw(AssetsXogo.texturePinchoInverso, o.getPosicion().x, o.getPosicion().y, o.getTamano().x, o.getTamano().y);
+                spritebatch.draw(AssetsXogo.pinchoInverso, o.getPosicion().x, o.getPosicion().y, o.getTamano().x, o.getTamano().y);
             }
         }
     }
@@ -102,20 +102,20 @@ public class RendererXogo implements InputProcessor {
     private void dibujarPlataformas() {
         for (Plataformas p : meuMundo.getPlataformas()) {
             if (p.getTipo().equals(Plataformas.Tipo.NORMAL) || p.getTipo().equals(Plataformas.Tipo.SOPORTE)) {
-                spritebatch.draw(AssetsXogo.texturePlataformaNegra, p.getPosicion().x, p.getPosicion().y, p.getTamano().x, p.getTamano().y);
+                spritebatch.draw(AssetsXogo.plataformaNegra, p.getPosicion().x, p.getPosicion().y, p.getTamano().x, p.getTamano().y);
             }
             if(p.getTipo().equals(Plataformas.Tipo.NARANJA)){
-                spritebatch.draw(AssetsXogo.texturePlataformaNaranja,p.getPosicion().x,p.getPosicion().y,p.getTamano().x,p.getTamano().y);
+                spritebatch.draw(AssetsXogo.plataformaNaranja,p.getPosicion().x,p.getPosicion().y,p.getTamano().x,p.getTamano().y);
             }
             if(p.getTipo().equals(Plataformas.Tipo.AZUL)){
-                spritebatch.draw(AssetsXogo.texturePlataformaAzul, p.getPosicion().x,p.getPosicion().y,p.getTamano().x,p.getTamano().y);
+                spritebatch.draw(AssetsXogo.plataformaAzul, p.getPosicion().x,p.getPosicion().y,p.getTamano().x,p.getTamano().y);
             }
         }
     }
 
     private void dibujarEstrellas(){
         for(Estrellas e:meuMundo.getEstrellas()){
-            spritebatch.draw(AssetsXogo.textureStar, e.getPosicion().x,e.getPosicion().y,e.getTamano().x, e.getTamano().y);
+            spritebatch.draw(AssetsXogo.star, e.getPosicion().x,e.getPosicion().y,e.getTamano().x, e.getTamano().y);
         }
     }
 
@@ -131,28 +131,28 @@ public class RendererXogo implements InputProcessor {
         int total =  meuMundo.getLisa().getVida();
         for(int i = 0; i < total; i++){
             if(i == 0){
-                spritebatch.draw(AssetsXogo.textureStar, 200, Mundo.SUELO - 55, 32,32);
+                spritebatch.draw(AssetsXogo.star, 200, Mundo.SUELO - 55, 32,32);
             }
             if(i == 1){
-                spritebatch.draw(AssetsXogo.textureStar, 250, Mundo.SUELO - 55, 32,32);
+                spritebatch.draw(AssetsXogo.star, 250, Mundo.SUELO - 55, 32,32);
             }
             if(i == 2){
-                spritebatch.draw(AssetsXogo.textureStar, 300, Mundo.SUELO - 55, 32,32);
+                spritebatch.draw(AssetsXogo.star, 300, Mundo.SUELO - 55, 32,32);
             }
         }
         if(meuMundo.getLisa().getNewVida() == 1){
-            spritebatch.draw(AssetsXogo.textureStar1,400,250,32,32);
+            spritebatch.draw(AssetsXogo.star1,400,250,32,32);
         }
         if(meuMundo.getLisa().getNewVida() == 2){
-            spritebatch.draw(AssetsXogo.textureStar2,400,250,32,32);
+            spritebatch.draw(AssetsXogo.star2,400,250,32,32);
         }
         if(meuMundo.getLisa().getNewVida() == 3){
-            spritebatch.draw(AssetsXogo.textureStar,400,250,32,32);
+            spritebatch.draw(AssetsXogo.star,400,250,32,32);
         }
     }
 
     private void dibujarMuerte() {
-        spritebatch.draw(AssetsXogo.texuteMuerte, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
+        spritebatch.draw(AssetsXogo.muerte, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
     }
 
     private void debugger() {
