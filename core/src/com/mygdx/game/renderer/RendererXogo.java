@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.AssetsXogo;
+import com.mygdx.game.modelo.Estrellas;
 import com.mygdx.game.modelo.Mundo;
 import com.mygdx.game.modelo.Lisa;
 import com.mygdx.game.modelo.Obstaculo;
@@ -57,6 +58,7 @@ public class RendererXogo implements InputProcessor {
             dibujarRunner();
             dibujarObstaculos();
             dibujarPlataformas();
+            dibujarEstrellas();
             dibujarPuntuacion();
             dibujarVidas();
             if (debugger) {
@@ -76,8 +78,8 @@ public class RendererXogo implements InputProcessor {
 
     private void dibujarFondo() {
         spritebatch.draw(AssetsXogo.texturaMorada, Mundo.FONDO_MORADO.x, Mundo.FONDO_MORADO.y, Mundo.FONDO_MORADO.width, Mundo.FONDO_MORADO.height);
-        spritebatch.draw(AssetsXogo.texturePuntoNegro, 0,0,Mundo.TAMANO_MUNDO_ANCHO,Mundo.SUELO);
-        spritebatch.draw(AssetsXogo.texturePuntoNegro, 0,Mundo.SUELO+Mundo.FONDO_MORADO.height,Mundo.TAMANO_MUNDO_ANCHO,Mundo.TAMANO_MUNDO_ALTO - (Mundo.SUELO+Mundo.FONDO_MORADO.height));
+        spritebatch.draw(AssetsXogo.texturePuntoNegro, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.SUELO);
+        spritebatch.draw(AssetsXogo.texturePuntoNegro, 0, Mundo.SUELO + Mundo.FONDO_MORADO.height, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO - (Mundo.SUELO + Mundo.FONDO_MORADO.height));
     }
 
     private void dibujarRunner() {
@@ -111,9 +113,16 @@ public class RendererXogo implements InputProcessor {
         }
     }
 
+    private void dibujarEstrellas(){
+        for(Estrellas e:meuMundo.getEstrellas()){
+            spritebatch.draw(AssetsXogo.textureStar, e.getPosicion().x,e.getPosicion().y,e.getTamano().x, e.getTamano().y);
+        }
+    }
+
     private void dibujarPuntuacion(){
 
-        bmf.draw(spritebatch,"SCORE: " +(int) meuMundo.getLisa().getPuntuacion() ,175,275);
+        bmf.draw(spritebatch,"SCORE: " +(int) meuMundo.getLisa().getPuntuacion() ,50,275);
+
 
 
     }
@@ -130,6 +139,15 @@ public class RendererXogo implements InputProcessor {
             if(i == 2){
                 spritebatch.draw(AssetsXogo.textureStar, 300, Mundo.SUELO - 55, 32,32);
             }
+        }
+        if(meuMundo.getLisa().getNewVida() == 1){
+            spritebatch.draw(AssetsXogo.textureStar1,400,250,32,32);
+        }
+        if(meuMundo.getLisa().getNewVida() == 2){
+            spritebatch.draw(AssetsXogo.textureStar2,400,250,32,32);
+        }
+        if(meuMundo.getLisa().getNewVida() == 3){
+            spritebatch.draw(AssetsXogo.textureStar,400,250,32,32);
         }
     }
 
@@ -158,7 +176,11 @@ public class RendererXogo implements InputProcessor {
     }
 
 
-
+    /**
+     * Metodo que nos permite reajustar el mundo al tamaño que nosotros queremos
+     * @param width
+     * @param height
+     */
     public void resize(int width, int height) {
 
         camara2d.setToOrtho(false, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);

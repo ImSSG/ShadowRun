@@ -6,10 +6,13 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.AssetsXogo;
+import com.mygdx.game.ShadowGame;
+import com.mygdx.game.modelo.Estrellas;
 import com.mygdx.game.modelo.Mundo;
 import com.mygdx.game.modelo.Lisa;
 import com.mygdx.game.modelo.Obstaculo;
 import com.mygdx.game.modelo.Plataformas;
+import com.mygdx.game.pantallas.PantallaPausa;
 import com.mygdx.game.pantallas.PantallaXogo;
 
 
@@ -26,17 +29,24 @@ public class ControladorXogo {
     private float tiempo = 0;
     private boolean invencible = false; //Cuando colisiona se vuelve "invencible" durante unos instantes porque colisiona mucho por segundo
     private float invencibleTiempo = 0;
+    private ShadowGame juego;
 
     public enum Keys {
-        ESQUERDA, DEREITA, ARRIBA, ABAIXO
+        ESQUERDA, DEREITA, ARRIBA, ABAIXO, PAUSA
     }
 
     HashMap<Keys, Boolean> keys;
 
-    public ControladorXogo(Mundo mundo) {
+    /**
+     * Constructor del controlador del juego, esta clase lleva toda la logica del juego
+     *
+     * @param mundo Nuestro mundo donde estan todos los objetos
+     * @param juego Nuestro juego con su configuracion
+     */
+    public ControladorXogo(Mundo mundo, ShadowGame juego) {
         this.meuMundo = mundo;
         this.lisa = meuMundo.getLisa();
-
+        this.juego = juego;
 
 
         keys = new HashMap<ControladorXogo.Keys, Boolean>();
@@ -45,22 +55,34 @@ public class ControladorXogo {
             keys.put(Keys.DEREITA, false);
             keys.put(Keys.ARRIBA, false);
             keys.put(Keys.ABAIXO, false);
+            keys.put(Keys.PAUSA, false);
         }
 
     }
 
+    /**
+     * Metodo que llama al control de todo lo que tenemos en nuestro mundo
+     *
+     * @param delta tiempo que pasa entre frame y frame
+     */
     public void update(float delta) {
 
         generacionPorTiempo(tiempo += delta);
-        lisa.setPuntuacion(lisa.getPuntuacion()+0.2f);
+        lisa.setPuntuacion(lisa.getPuntuacion() + 0.2f);
         controlarLisa(delta);
         controlarObstaculos(delta);
         controlarPlataformas(delta);
+        controlarEstrellas(delta);
         gestionarReset(delta);
         gestionarInvencible(delta);
         procesarEntradas();
     }
 
+    /**
+     * Metodo que gestiona nuestro personaje y todas sus colisiones
+     *
+     * @param delta tiempo que pasa entre frame y frame
+     */
     private void controlarLisa(float delta) {
         lisa.update(delta);
 
@@ -96,13 +118,13 @@ public class ControladorXogo {
                 //Esta sobre una normal
                 if (p.getTipo().equals(Plataformas.Tipo.NORMAL)) {
                     //CONTROLA LAS COLISIONES D ELAS AZULES CON LAS NEGRAS EN EL AIRE PARA QUE DESAPAREZCAN LAS AZULES
-                    if(p.getPosicion().y>Mundo.SUELO+50){
+                    if (p.getPosicion().y > Mundo.SUELO + 50) {
                         lisa.setVelocidadeY(-lisa.velocidade_max);
                         lisa.setEnAzul(false);
                         Iterator<Plataformas> i = meuMundo.getPlataformas().iterator();
-                        while(i.hasNext()){
+                        while (i.hasNext()) {
                             Plataformas j = i.next();
-                            if(j.getTipo().equals(Plataformas.Tipo.AZUL)){
+                            if (j.getTipo().equals(Plataformas.Tipo.AZUL)) {
                                 j.setVelocidadeX(-100000); //EL DISPOSE DE LOS POBRES
                             }
                         }
@@ -142,7 +164,7 @@ public class ControladorXogo {
             if (Intersector.overlaps(lisa.getColisionesLisa(), p.getColisionPlataforma()[1]) && !p.getTipo().equals(Plataformas.Tipo.AZUL)) {
                 if (!lisa.isEnAzul()) {
                     //lisa.setLisaISALIVE(false);
-                    if(!invencible) {
+                    if (!invencible) {
                         invencible = true;
                         lisa.setVida(lisa.getVida() - 1);
                         PantallaXogo.dmg();
@@ -161,7 +183,7 @@ public class ControladorXogo {
             if (Intersector.overlaps(o.getColisionObstaculo(), colisionLisa)) {
                 //lisa.setLisaISALIVE(false);+
 
-                if(!invencible) {
+                if (!invencible) {
                     lisa.setVida(lisa.getVida() - 1);
                     PantallaXogo.dmg();
                     invencible = true;
@@ -189,6 +211,9 @@ public class ControladorXogo {
         keys.put(tecla, false);
     }
 
+    /**
+     * Metodo que gestiona las entradas que hacemos al juego, como si pulsamos arriba o mandamos pausar etc
+     */
     private void procesarEntradas() {
 
 
@@ -211,6 +236,11 @@ public class ControladorXogo {
         }
     }
 
+    /**
+     * Metodo que se ejecuta cada 6 segundos generando un nuevo paquete de enemigos
+     *
+     * @param delta este valor se suma en su llamada en el metodo update al cronometro para que pasen 6 segundos y se genere el paquete
+     */
     private void generacionPorTiempo(float delta) {
         if (tiempo >= 6) {
             meuMundo.generacion();
@@ -219,6 +249,11 @@ public class ControladorXogo {
         }
     }
 
+    /**
+     * Metodo que mueve y gestiona las plataformas
+     *
+     * @param delta es el tiempo que pasa entre frame y frame
+     */
     private void controlarPlataformas(float delta) {
         Iterator<Plataformas> i = meuMundo.getPlataformas().iterator();
         Plataformas platAzul = null;
@@ -278,6 +313,40 @@ public class ControladorXogo {
         }
     }
 
+    /**
+     * Metodo que gestiona las estrellas que nos aparecen y sus colisiones
+     *
+     * @param delta tiempo que pasa entre frame y frame
+     */
+    private void controlarEstrellas(float delta) {
+        Iterator<Estrellas> i = meuMundo.getEstrellas().iterator();
+        while (i.hasNext()) {
+            Estrellas e = i.next();
+            e.update(delta);
+            if (Intersector.overlaps(lisa.getColisionesLisa(), e.getColisionEstrella())) {
+                PantallaXogo.estrella();
+                lisa.setNewVida(lisa.getNewVida() + 1);
+                i.remove();
+            }
+        }
+    }
+
+    /**
+     * Metodo que hace que si recibimos daño no podamos recibir todo el daño de golpe y solo pueda pasar 2.5 segundos antes del siguiente daño
+     *
+     * @param delta tiempo entre frame y frame
+     */
+    private void gestionarInvencible(float delta) {
+        if (invencible) {
+            tiempo += delta;
+            if (tiempo > 2.5) {
+                invencible = false;
+                tiempo = 0;
+            }
+        }
+    }
+
+
     private void gestionarReset(float delta) {
         if (!lisa.isLisaISALIVE() && keys.get(Keys.ARRIBA)) {
             if (Intersector.overlaps(lisa.getColisionesLisa(), new Rectangle(0, 0, meuMundo.TAMANO_MUNDO_ANCHO, meuMundo.TAMANO_MUNDO_ALTO))) {
@@ -286,16 +355,5 @@ public class ControladorXogo {
             }
         }
     }
-
-    private void gestionarInvencible(float delta){
-        if(invencible){
-            tiempo+=delta;
-            if(tiempo>2.5){
-                invencible = false;
-                tiempo = 0;
-            }
-        }
-    }
-
 
 }

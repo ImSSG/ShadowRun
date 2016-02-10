@@ -18,6 +18,7 @@ public class Lisa extends Personaje {
     private boolean enAzul = false;
     private float puntuacion = 0;
     private int vida = 3;
+    private int newVida = 1;
 
     public int getVida() {
         return vida;
@@ -97,6 +98,19 @@ public class Lisa extends Personaje {
 
     }
 
+    public int getNewVida() {
+        return newVida;
+    }
+
+    public void setNewVida(int newVida) {
+        if(this.newVida < 3) {
+            this.newVida = newVida;
+        }
+        if(this.newVida == 3 && vida < 3){
+            vida++;
+            this.newVida = 0;
+        }
+    }
 
     public void setVelocidadeX(float x){
         velocidade.x = x;

@@ -27,88 +27,131 @@ public class PantallaPausa implements InputProcessor, Screen {
 
     private OrthographicCamera camara2d;
 
-    public PantallaPausa(ShadowGame meuxogogame) {
+    private PantallaXogo pantallaXogo;
+
+    private ShadowGame juego;
+
+    public PantallaPausa(ShadowGame meuxogogame, PantallaXogo pantalla) {
         meuMundo = new Mundo();
 
         camara2d = new OrthographicCamera();
         spritebatch = new SpriteBatch();
         shaperender = new ShapeRenderer();
+        this.pantallaXogo = pantalla;
+        this.juego = meuxogogame;
+        pantalla.setPausa(false);
     }
 
     @Override
     public void render(float delta) {
-        spritebatch.draw(AssetsXogo.texturePausa, 100,50, 200,150);
+        spritebatch.begin();
+        spritebatch.draw(AssetsXogo.texturePausa, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
+        spritebatch.end();
     }
 
     @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
+    public void resize(int width, int height) {
+        // TODO Auto-generated method stub
 
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
+        camara2d.setToOrtho(false, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
+        camara2d.update();
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+        spritebatch.setProjectionMatrix(camara2d.combined);
+        spritebatch.disableBlending();
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
     }
 
     @Override
     public void show() {
-
-    }
-
-
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
+        // TODO Auto-generated method stub
+        Gdx.input.setInputProcessor(this);
 
     }
 
     @Override
     public void hide() {
+        // TODO Auto-generated method stub
+        Gdx.input.setInputProcessor(null);
+
+    }
+
+    @Override
+    public void pause() {
+        // TODO Auto-generated method stub
+        Gdx.input.setInputProcessor(null);
+
+    }
+
+    @Override
+    public void resume() {
+        // TODO Auto-generated method stub
+        Gdx.input.setInputProcessor(this);
 
     }
 
     @Override
     public void dispose() {
+        // TODO Auto-generated method stub
+        Gdx.input.setInputProcessor(null);
+
+        spritebatch.dispose();
+
 
     }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        // TODO Auto-generated method stub
+        juego.setScreen(pantallaXogo);
+        pantallaXogo.setPausa(false);
+        return false;
+
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        // TODO Auto-generated method stub
+        juego.setScreen(pantallaXogo);
+        pantallaXogo.setPausa(false);
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+
 }
+

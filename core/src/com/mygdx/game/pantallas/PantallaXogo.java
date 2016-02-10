@@ -8,8 +8,11 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.ShadowGame;
 import com.mygdx.game.controlador.ControladorXogo;
+import com.mygdx.game.modelo.Lisa;
 import com.mygdx.game.modelo.Mundo;
 import com.mygdx.game.renderer.RendererXogo;
+
+import java.security.Key;
 
 /**
  * Created by Sam on 24/01/2016.
@@ -22,19 +25,24 @@ public class PantallaXogo implements Screen, InputProcessor {
     private RendererXogo rendererxogo;
     private ControladorXogo controladorXogo;
     static Music musica = Gdx.audio.newMusic(Gdx.files.internal("SONIDOS/main.mp3"));
+    private boolean pausa = false;
 
 
     public PantallaXogo(ShadowGame meuxogogame) {
         meuMundo = new Mundo();
         this.meuxogogame = meuxogogame;
         rendererxogo = new RendererXogo(meuMundo);
-        controladorXogo = new ControladorXogo(meuMundo);
+        controladorXogo = new ControladorXogo(meuMundo,meuxogogame);
     }
 
-    public static void dmg(){
+    public static void dmg() {
         Sound dmgSound = Gdx.audio.newSound(Gdx.files.internal("SONIDOS/dmg.mp3"));
         dmgSound.play();
+    }
 
+    public static void estrella(){
+        Sound up = Gdx.audio.newSound(Gdx.files.internal("SONIDOS/dmg.mp3"));
+        up.play();
     }
 
 
@@ -45,6 +53,12 @@ public class PantallaXogo implements Screen, InputProcessor {
         rendererxogo.render(delta);
         controladorXogo.update(delta);
         musica.play();
+
+        if(pausa){
+            meuxogogame.setScreen(new PantallaPausa(meuxogogame,this));
+            musica.pause();
+            return;
+        }
 
 
     }
@@ -59,12 +73,14 @@ public class PantallaXogo implements Screen, InputProcessor {
     public void show() {
         // TODO Auto-generated method stub
         Gdx.input.setInputProcessor(this);
+        pausa = false;
     }
 
     @Override
     public void hide() {
         // TODO Auto-generated method stub
         Gdx.input.setInputProcessor(null);
+        pausa = true;
 
     }
 
@@ -73,12 +89,14 @@ public class PantallaXogo implements Screen, InputProcessor {
         // TODO Auto-generated method stub
         Gdx.input.setInputProcessor(null);
 
+
     }
 
     @Override
     public void resume() {
         // TODO Auto-generated method stub
         Gdx.input.setInputProcessor(this);
+        pausa = false;
 
     }
 
@@ -101,6 +119,13 @@ public class PantallaXogo implements Screen, InputProcessor {
                     controladorXogo.pulsarTecla(ControladorXogo.Keys.ARRIBA);
 
                 break;
+            case Input.Keys.BACK:
+                pausa = true;
+                controladorXogo.pulsarTecla(ControladorXogo.Keys.PAUSA);
+                break;
+            case Input.Keys.ESCAPE:
+                pausa = true;
+                controladorXogo.pulsarTecla(ControladorXogo.Keys.PAUSA);
 
         }
 
@@ -112,8 +137,10 @@ public class PantallaXogo implements Screen, InputProcessor {
     public boolean keyUp(int keycode) {
         switch (keycode) {
             case Input.Keys.UP:
-
-                    controladorXogo.liberarTecla(ControladorXogo.Keys.ARRIBA);
+                controladorXogo.liberarTecla(ControladorXogo.Keys.ARRIBA);
+                break;
+            case Input.Keys.ESCAPE | Input.Keys.BACK:
+                controladorXogo.liberarTecla(ControladorXogo.Keys.PAUSA);
                 break;
 
         }
@@ -156,5 +183,12 @@ public class PantallaXogo implements Screen, InputProcessor {
         return false;
     }
 
+    public boolean isPausa() {
+        return pausa;
+    }
+
+    public void setPausa(boolean nuevo) {
+       pausa = nuevo;
+    }
 
 }
