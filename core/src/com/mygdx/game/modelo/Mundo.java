@@ -2,8 +2,11 @@ package com.mygdx.game.modelo;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.ShadowGame;
 
 import java.util.ArrayList;
+
+import javafx.scene.effect.Shadow;
 
 /**
  * Created by Sam on 24/01/2016.
@@ -22,10 +25,12 @@ public class Mundo {
     private ArrayList<Plataformas> plataformas;
     private ArrayList<Estrellas> estrellas;
 
+    ShadowGame juego;
 
-    public Mundo() {
 
-        lisa = new Lisa(new Vector2(50, Mundo.SUELO), new Vector2(30, 45), 350);
+    public Mundo(ShadowGame juego) {
+        this.juego = juego;
+        lisa = new Lisa(new Vector2(50, Mundo.SUELO), new Vector2(30, 45), 350, juego);
 
         generacion();
 

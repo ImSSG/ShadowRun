@@ -2,6 +2,10 @@ package com.mygdx.game.modelo;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.ShadowGame;
+import com.mygdx.game.controlador.ControladorXogo;
+import com.mygdx.game.pantallas.PantallaMarcadores;
+import com.mygdx.game.pantallas.Scene2DUI;
 
 /**
  * Created by Sam on 24/01/2016.
@@ -18,6 +22,7 @@ public class Lisa extends Personaje {
     private float puntuacion = 0;
     private int vida = 3;
     private int newVida = 1;
+    ShadowGame juego;
 
     /**
      * Constructor del personaje
@@ -25,9 +30,10 @@ public class Lisa extends Personaje {
      * @param tamano tamano del personaje
      * @param velocidade_max velocidad del personaje
      */
-    public Lisa(Vector2 posicion, Vector2 tamano, float velocidade_max) {
+    public Lisa(Vector2 posicion, Vector2 tamano, float velocidade_max, ShadowGame juego) {
         super(posicion, tamano, velocidade_max);
         velocidade = new Vector2(0,0);
+        this.juego = juego;
 
     }
 
@@ -47,6 +53,7 @@ public class Lisa extends Personaje {
         this.vida = vida;
         if(this.vida == 0){
             lisaISALIVE = false;
+            juego.setScreen(new Scene2DUI());
         }
     }
 

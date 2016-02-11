@@ -67,8 +67,6 @@ public class RendererXogo implements InputProcessor {
             if (debugger) {
                 debugger();
             }
-        } else {
-            dibujarMuerte();
         }
 
         spritebatch.end();

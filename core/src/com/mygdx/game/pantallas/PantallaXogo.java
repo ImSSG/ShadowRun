@@ -35,7 +35,7 @@ public class PantallaXogo implements Screen, InputProcessor {
      * @param meuxogogame una instancia del juego
      */
     public PantallaXogo(ShadowGame meuxogogame) {
-        meuMundo = new Mundo();
+        meuMundo = new Mundo(meuxogogame);
         this.meuxogogame = meuxogogame;
         rendererxogo = new RendererXogo(meuMundo);
         controladorXogo = new ControladorXogo(meuMundo,meuxogogame);

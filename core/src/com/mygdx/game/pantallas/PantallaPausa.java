@@ -18,7 +18,7 @@ import com.mygdx.game.renderer.RendererXogo;
  */
 public class PantallaPausa implements InputProcessor, Screen {
 
-    private Mundo meuMundo;
+
     static Music musica = Gdx.audio.newMusic(Gdx.files.internal("SONIDOS/main.mp3"));
 
     private ShapeRenderer shaperender;
@@ -37,7 +37,7 @@ public class PantallaPausa implements InputProcessor, Screen {
      * @param pantalla la pantalla de juego
      */
     public PantallaPausa(ShadowGame meuxogogame, PantallaXogo pantalla) {
-        meuMundo = new Mundo();
+
 
         camara2d = new OrthographicCamera();
         spritebatch = new SpriteBatch();
