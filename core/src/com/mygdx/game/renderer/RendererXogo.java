@@ -137,11 +137,7 @@ public class RendererXogo implements InputProcessor {
      * Metodo que nos dibuja la puntuacion
      */
     private void dibujarPuntuacion(){
-
         bmf.draw(spritebatch,"SCORE: " +(int) meuMundo.getLisa().getPuntuacion() ,50,275);
-
-
-
     }
 
     /**

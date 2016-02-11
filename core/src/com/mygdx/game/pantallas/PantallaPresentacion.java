@@ -133,12 +133,14 @@ public class PantallaPresentacion implements Screen, InputProcessor {
         Vector3 temporal = new Vector3(screenX,screenY,0);
         camara2d.unproject(temporal);
         Circle dedo = new Circle(new Vector2(temporal.x,temporal.y),10);
+        //Play
         if(Intersector.overlaps(dedo,play)){
             juego.setScreen(new PantallaXogo(juego));
         }
+        //Opciones
         if(Intersector.overlaps(dedo, opciones)){
-            //juego.setScreen(new PantallaOpciones());
-            System.out.println("opciones");
+            juego.setScreen(new PantallaOpciones(juego));
+
         }
 
 

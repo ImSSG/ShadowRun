@@ -16,6 +16,7 @@ import java.util.logging.FileHandler;
 public class AssetsXogo {
 
     public static Texture menuprincipal;
+    public static Texture pantallaOpciones;
 
     private static TextureAtlas atlas;
     private static TextureAtlas animAtlas;
@@ -63,6 +64,8 @@ public class AssetsXogo {
 
         FileHandle fileHandler = Gdx.files.internal("GRAFICOS/menuprincipal.jpg");
         menuprincipal = new Texture(fileHandler);
+        fileHandler = Gdx.files.internal("GRAFICOS/opciones.png");
+        pantallaOpciones = new Texture(fileHandler);
 
     }
 
@@ -84,6 +87,8 @@ public class AssetsXogo {
         star1 = null;
         star2 = null;
         pausa = null;
+        menuprincipal = null;
+        pantallaOpciones = null;
 
     }
 

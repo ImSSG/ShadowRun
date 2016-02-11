@@ -301,6 +301,11 @@ public class ControladorXogo {
         }
     }
 
+    /**
+     * Metodo que mueve y gestiona los obstaculos y sus colisiones
+     *
+     * @param delta tiempo que pasa entre frame y frame
+     */
     private void controlarObstaculos(float delta) {
         Iterator<Obstaculo> i = meuMundo.getObstaculos().iterator();
         while (i.hasNext()) {

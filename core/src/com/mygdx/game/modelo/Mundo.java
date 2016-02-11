@@ -55,7 +55,7 @@ public class Mundo {
         int paquete = (int) (Math.random() * 100);
         paquete *= 3;
 
-        paquete = 200; //PARA PROBAR EL PAQUETE INDICADO
+        //paquete = 200; //PARA PROBAR EL PAQUETE INDICADO
 
         if (paquete < 100) {
 
