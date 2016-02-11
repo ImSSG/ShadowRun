@@ -3,6 +3,7 @@ package com.mygdx.game.pantallas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -13,6 +14,7 @@ import com.mygdx.game.modelo.Mundo;
 import com.mygdx.game.renderer.RendererXogo;
 
 import java.security.Key;
+
 
 /**
  * Created by Sam on 24/01/2016.
@@ -26,7 +28,7 @@ public class PantallaXogo implements Screen, InputProcessor {
     private ControladorXogo controladorXogo;
     static Music musica = Gdx.audio.newMusic(Gdx.files.internal("SONIDOS/main.mp3"));
     private boolean pausa = false;
-
+    static float volumen;
 
     /**
      * Metodo constructor de la pantalla del juego
@@ -37,14 +39,18 @@ public class PantallaXogo implements Screen, InputProcessor {
         this.meuxogogame = meuxogogame;
         rendererxogo = new RendererXogo(meuMundo);
         controladorXogo = new ControladorXogo(meuMundo,meuxogogame);
+        Preferences prefs = Gdx.app.getPreferences("preferencias");
+        int sonido = prefs.getInteger("volumen",10);
+        volumen = (float)sonido / 10f;
     }
 
     /**
      * Metodo que hace que suene el sonido de daño
      */
     public static void dmg() {
+
         Sound dmgSound = Gdx.audio.newSound(Gdx.files.internal("SONIDOS/dmg.mp3"));
-        dmgSound.play();
+        dmgSound.play(volumen);
     }
 
     /**
@@ -52,7 +58,7 @@ public class PantallaXogo implements Screen, InputProcessor {
      */
     public static void estrella(){
         Sound up = Gdx.audio.newSound(Gdx.files.internal("SONIDOS/dmg.mp3"));
-        up.play();
+        up.play(volumen);
     }
 
     /**
@@ -70,6 +76,7 @@ public class PantallaXogo implements Screen, InputProcessor {
 
         rendererxogo.render(delta);
         controladorXogo.update(delta);
+        musica.setVolume(volumen);
         musica.play();
 
         if(pausa){

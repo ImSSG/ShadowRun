@@ -2,6 +2,7 @@ package com.mygdx.game.pantallas;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -40,6 +41,8 @@ public class PantallaOpciones implements Screen, InputProcessor {
     private Rectangle tutorial = new Rectangle(209,0,160,34);
     private Rectangle salir = new Rectangle(521,0,80,50);
 
+    int volumen;
+    int vidas;
 
     public PantallaOpciones(ShadowGame juego) {
         camara2d = new OrthographicCamera();
@@ -47,6 +50,11 @@ public class PantallaOpciones implements Screen, InputProcessor {
         shaperender = new ShapeRenderer();
 
         bmf = new BitmapFont(Gdx.files.internal("fuentes.fnt"), false);
+
+        Preferences preferencias = Gdx.app.getPreferences("preferencias");
+        volumen = preferencias.getInteger("volumen",10);
+        vidas = preferencias.getInteger("vidas", 3);
+
         this.juego = juego;
     }
 
@@ -55,8 +63,8 @@ public class PantallaOpciones implements Screen, InputProcessor {
         spritebatch.begin();
         //bmf.draw(spritebatch, "Volumen", Mundo.TAMANO_MUNDO_ANCHO/2 - 40, 275);
         spritebatch.draw(AssetsXogo.pantallaOpciones, 0, 0, Mundo.TAMANO_MUNDO_ANCHO, Mundo.TAMANO_MUNDO_ALTO);
-        bmf.draw(spritebatch, "10", 275, 220);
-        bmf.draw(spritebatch, "3", 280, 85);
+        bmf.draw(spritebatch, volumen+"", 275, 220);
+        bmf.draw(spritebatch, vidas+"", 280, 85);
         spritebatch.end();
     }
 
@@ -98,6 +106,7 @@ public class PantallaOpciones implements Screen, InputProcessor {
         // TODO Auto-generated method stub
         Gdx.input.setInputProcessor(this);
 
+
     }
 
     @Override
@@ -138,22 +147,36 @@ public class PantallaOpciones implements Screen, InputProcessor {
         Circle dedo = new Circle(new Vector2(temporal.x,temporal.y),10);
 
         if(Intersector.overlaps(dedo,masVolumen)){
-
+            if(volumen<10){
+                volumen++;
+            }
         }
 
         if(Intersector.overlaps(dedo,menosVolumen)){
-
+            if(volumen>0){
+                volumen--;
+            }
         }
 
         if(Intersector.overlaps(dedo,masVidas)){
-
+            if(vidas<3){
+                vidas++;
+            }
         }
 
         if(Intersector.overlaps(dedo,menosVidas)){
-
+            if(vidas>1){
+                vidas--;
+            }
         }
 
         if(Intersector.overlaps(dedo,atras)){
+            Preferences prefs = Gdx.app.getPreferences("preferencias");
+
+            prefs.putInteger("volumen",volumen);
+            prefs.putInteger("vidas",vidas);
+
+            prefs.flush();
             juego.setScreen(new PantallaPresentacion(juego));
         }
 
