@@ -1,10 +1,11 @@
 package com.mygdx.game.modelo;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.ShadowGame;
 import com.mygdx.game.pantallas.PantallaMarcadores;
-import com.mygdx.game.pantallas.Scene2DUI;
 
 /**
  * Created by Sam on 24/01/2016.
@@ -20,9 +21,9 @@ public class Lisa extends Personaje {
     private boolean enAzul = false;
     private float puntuacion = 0;
     private int vida = 1;
-    private int newVida = 1;
+    private int newVida = 0;
     ShadowGame juego;
-    private final int maxVidas = 1;
+    private int maxVidas = 1;
     /**
      * Constructor del personaje
      * @param posicion posicion original del personaje
@@ -33,6 +34,9 @@ public class Lisa extends Personaje {
         super(posicion, tamano, velocidade_max);
         velocidade = new Vector2(0,0);
         this.juego = juego;
+        Preferences prefs = Gdx.app.getPreferences("preferencias");
+        maxVidas = Integer.valueOf(prefs.getString("vidas","3"));
+        vida= maxVidas;
 
     }
 
@@ -52,7 +56,7 @@ public class Lisa extends Personaje {
         this.vida = vida;
         if(this.vida == 0){
             lisaISALIVE = false;
-            //juego.setScreen(new Scene2DUI());
+
             juego.setScreen(new PantallaMarcadores(juego,this));
         }
     }

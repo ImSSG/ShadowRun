@@ -26,7 +26,7 @@ public class PantallaXogo implements Screen, InputProcessor {
     private ShadowGame meuxogogame;
     private RendererXogo rendererxogo;
     private ControladorXogo controladorXogo;
-    static Music musica = Gdx.audio.newMusic(Gdx.files.internal("SONIDOS/main.mp3"));
+    public static Music musica = Gdx.audio.newMusic(Gdx.files.internal("SONIDOS/main.mp3"));
     private boolean pausa = false;
     static float volumen;
 
