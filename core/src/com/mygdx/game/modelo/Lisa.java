@@ -3,7 +3,6 @@ package com.mygdx.game.modelo;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.ShadowGame;
-import com.mygdx.game.controlador.ControladorXogo;
 import com.mygdx.game.pantallas.PantallaMarcadores;
 import com.mygdx.game.pantallas.Scene2DUI;
 
@@ -20,10 +19,10 @@ public class Lisa extends Personaje {
     private float ultimaAltura = 0;
     private boolean enAzul = false;
     private float puntuacion = 0;
-    private int vida = 3;
+    private int vida = 1;
     private int newVida = 1;
     ShadowGame juego;
-
+    private final int maxVidas = 1;
     /**
      * Constructor del personaje
      * @param posicion posicion original del personaje
@@ -53,7 +52,8 @@ public class Lisa extends Personaje {
         this.vida = vida;
         if(this.vida == 0){
             lisaISALIVE = false;
-            juego.setScreen(new Scene2DUI());
+            //juego.setScreen(new Scene2DUI());
+            juego.setScreen(new PantallaMarcadores(juego,this));
         }
     }
 
@@ -168,10 +168,10 @@ public class Lisa extends Personaje {
      * @param newVida nuevo valor de la "nueva vida"
      */
     public void setNewVida(int newVida) {
-        if(this.newVida < 3) {
+        if(this.newVida < maxVidas) {
             this.newVida = newVida;
         }
-        if(this.newVida == 3 && vida < 3){
+        if(this.newVida == 3 && vida < maxVidas){
             vida++;
             this.newVida = 0;
         }

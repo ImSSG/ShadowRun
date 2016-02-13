@@ -7,9 +7,9 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.mygdx.game.ShadowGame;
 import com.mygdx.game.controlador.ControladorXogo;
-import com.mygdx.game.modelo.Lisa;
 import com.mygdx.game.modelo.Mundo;
 import com.mygdx.game.renderer.RendererXogo;
 
@@ -42,6 +42,7 @@ public class PantallaXogo implements Screen, InputProcessor {
         Preferences prefs = Gdx.app.getPreferences("preferencias");
         int sonido = prefs.getInteger("volumen",10);
         volumen = (float)sonido / 10f;
+
     }
 
     /**
@@ -79,7 +80,7 @@ public class PantallaXogo implements Screen, InputProcessor {
         musica.setVolume(volumen);
         musica.play();
 
-        if(pausa){
+        if(pausa && meuMundo.getLisa().getVida()!=0){
             meuxogogame.setScreen(new PantallaPausa(meuxogogame,this));
             musica.pause();
             return;

@@ -1,18 +1,15 @@
 package com.mygdx.game.controlador;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
+
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.AssetsXogo;
 import com.mygdx.game.ShadowGame;
 import com.mygdx.game.modelo.Estrellas;
 import com.mygdx.game.modelo.Mundo;
 import com.mygdx.game.modelo.Lisa;
 import com.mygdx.game.modelo.Obstaculo;
 import com.mygdx.game.modelo.Plataformas;
-import com.mygdx.game.pantallas.PantallaPausa;
+
 import com.mygdx.game.pantallas.PantallaXogo;
 
 

@@ -17,6 +17,7 @@ public class AssetsXogo {
 
     public static Texture menuprincipal;
     public static Texture pantallaOpciones;
+    public static Texture marcadores;
 
     private static TextureAtlas atlas;
     private static TextureAtlas animAtlas;
@@ -66,6 +67,9 @@ public class AssetsXogo {
         menuprincipal = new Texture(fileHandler);
         fileHandler = Gdx.files.internal("GRAFICOS/opciones.png");
         pantallaOpciones = new Texture(fileHandler);
+        fileHandler = Gdx.files.internal("GRAFICOS/puntuaciones.png");
+        marcadores = new Texture(fileHandler);
+
 
     }
 
